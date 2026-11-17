@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Stream Highlight Card Generator | StreamMoment Cards</title>
+  <meta name="description" content="Turn a stream moment into a shareable highlight card and ready-to-post captions. No video upload or signup required.">
+  <meta name="theme-color" content="#10131f">
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+  <link rel="manifest" href="./site.webmanifest">
+  <link rel="canonical" href="https://streammoment.cards/">
+  <meta name="robots" content="index,follow">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="StreamMoment Cards">
+  <meta property="og:title" content="Stream Highlight Card Generator | StreamMoment Cards">
+  <meta property="og:description" content="Create polished social cards from memorable stream moments.">
+  <meta property="og:url" content="https://streammoment.cards/">
+  <meta property="og:image" content="https://streammoment.cards/og-image.svg">
+  <meta property="og:image:type" content="image/svg+xml">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Stream Highlight Card Generator | StreamMoment Cards">
+  <meta name="twitter:description" content="Create polished social cards from memorable stream moments.">
+  <meta name="twitter:image" content="https://streammoment.cards/og-image.svg">
+
+  <link rel="stylesheet" href="./css/styles.css">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "StreamMoment Cards",
+    "url": "https://streammoment.cards/",
+    "image": "https://streammoment.cards/og-image.svg",
+    "description": "A stream highlight card generator for streamers and gaming communities.",
+    "applicationCategory": "SocialNetworkingApplication",
+    "operatingSystem": "Any",
+    "browserRequirements": "Requires JavaScript and a modern browser",
+    "isAccessibleForFree": true,
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    }
+  }
+  </script>
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="./" aria-label="StreamMoment Cards home">StreamMoment <span>Cards</span></a>
+    <nav aria-label="Primary navigation">
+      <a href="#create">Create</a>
+      <a href="./twitch-quote-card-generator.html">Twitch quote cards</a>
+      <a href="./privacy.html">Privacy</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" aria-labelledby="page-title">
+      <p class="eyebrow">No signup · No video upload</p>
+      <h1 id="page-title">Turn any stream moment into a shareable highlight card</h1>
+      <p class="hero-copy">Paste what happened, add a quote or chat reaction, and get a polished card plus ready-to-post captions.</p>
+      <a class="button primary" href="#create">Create a stream card</a>
+    </section>
+
+    <section id="create" class="workspace" aria-labelledby="creator-title">
+      <div class="panel form-panel">
+        <h2 id="creator-title">Describe the moment</h2>
+
+        <form id="moment-form">
+          <label for="moment-type">Moment type</label>
+          <select id="moment-type" name="momentType">
+            <option value="Epic moment">Epic moment</option>
+            <option value="Funny moment">Funny moment</option>
+            <option value="Comeback/clutch">Comeback / clutch</option>
+            <option value="Chat reaction">Chat reaction</option>
+          </select>
+
+          <label for="moment">What happened? <span class="required">*</span></label>
+          <textarea
+            id="moment"
+            name="moment"
+            minlength="10"
+            maxlength="1200"
+            required
+            aria-describedby="moment-help moment-count moment-error"
+            placeholder="Example: After losing most of the round, Maya waited for the perfect opening and won the final duel..."
+          ></textarea>
+          <div class="field-meta">
+            <small id="moment-help">10–1,200 characters</small>
+            <small id="moment-count">0 / 1,200</small>
+          </div>
+          <p id="moment-error" class="field-error" role="alert"></p>
+
+          <label for="quote">Quote or chat excerpt <span class="optional">(optional)</span></label>
+          <textarea
+            id="quote"
+            name="quote"
+            maxlength="280"
+            aria-describedby="quote-count"
+            placeholder="Example: CHAT: NO WAY"
+          ></textarea>
+          <div class="field-meta">
+            <span></span>
+            <small id="quote-count">0 / 280</small>
+          </div>
+
+          <div class="two-col">
+            <div>
+              <label for="game">Game or category</label>
+              <input id="game" name="game" autocomplete="off" maxlength="80" placeholder="Valorant">
+            </div>
+            <div>
+              <label for="streamer">Streamer or channel</label>
+              <input id="streamer" name="streamer" autocomplete="off" maxlength="80" placeholder="MayaPlays">
+            </div>
+          </div>
+
+          <label for="tone">Tone</label>
+          <select id="tone" name="tone">
+            <option value="Hype">Hype</option>
+            <option value="Funny">Funny</option>
+            <option value="Dramatic">Dramatic</option>
+            <option value="Wholesome">Wholesome</option>
+            <option value="Chaotic">Chaotic</option>
+          </select>
+
+          <button class="button primary full" id="generate" type="submit">
+            Generate card
+          </button>
+          <p id="status" class="status" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+
+      <div class="panel result-panel" aria-labelledby="result-title">
+        <div class="panel-heading">
+          <h2 id="result-title">Your card</h2>
+          <span class="badge">1200 × 675</span>
+        </div>
+
+        <div
+          id="card-preview"
+          class="card-preview empty"
+          role="region"
+          aria-live="polite"
+          aria-labelledby="result-title"
+        >
+          <div>
+            <strong>Your highlight appears here</strong>
+            <span>Describe a moment to get started.</span>
+          </div>
+        </div>
+
+        <p id="card-summary" class="sr-only" aria-live="polite"></p>
+
+        <div id="editor" class="editor" hidden>
+          <label for="headline">Headline</label>
+          <input id="headline" name="headline" maxlength="100">
+
+          <label for="context">Context</label>
+          <textarea id="context" name="context" maxlength="240"></textarea>
+
+          <label for="reaction">Reaction</label>
+          <input id="reaction" name="reaction" maxlength="140">
+
+          <div class="actions">
+            <button class="button secondary" id="download" type="button">Download PNG</button>
+            <button class="button secondary" id="regenerate" type="button">Regenerate</button>
+            <button class="button ghost" id="reset" type="button">Start over</button>
+          </div>
+
+          <p class="disclosure">AI-assisted text can be imperfect. Review it before sharing.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="captions" class="captions" hidden aria-labelledby="captions-title">
+      <h2 id="captions-title">Ready-to-post captions</h2>
+
+      <div class="caption-grid">
+        <article class="caption-box">
+          <div class="caption-title">
+            <h3>X caption</h3>
+            <button class="copy" data-copy="x-caption" type="button">Copy</button>
+          </div>
+          <p id="x-caption"></p>
+        </article>
+
+        <article class="caption-box">
+          <div class="caption-title">
+            <h3>Discord caption</h3>
+            <button class="copy" data-copy="discord-caption" type="button">Copy</button>
+          </div>
+          <p id="discord-caption"></p>
+        </article>
+      </div>
+    </section>
+
+    <section class="trust" aria-labelledby="trust-title">
+      <h2 id="trust-title">Built for stream communities</h2>
+
+      <div class="feature-grid">
+        <p><strong>Fast</strong><br>Go from moment to card in under a minute.</p>
+        <p><strong>Flexible</strong><br>Edit every generated field before downloading.</p>
+        <p><strong>Private</strong><br>No account, streaming connection, or public posting.</p>
+      </div>
+
+      <p class="disclaimer">
+        Unofficial entertainment tool. StreamMoment Cards is not affiliated with Twitch, Kick,
+        YouTube, or any streamer mentioned by users. Review generated content before sharing.
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    <span>© 2026 StreamMoment Cards</span>
+    <span>
+      <a href="./privacy.html">Privacy</a> ·
+      <a href="./terms.html">Terms</a>
+    </span>
+  </footer>
+
+  <script>
+    window.STREAMMOMENT_API_URL = "";
+  </script>
+  <script src="./js/app.js"></script>
+</body>
+</html>
